@@ -1,111 +1,111 @@
-#include <bits/stdc++.h>  // °üº¬¼¸ºõËùÓĞ±ê×¼¿âÍ·ÎÄ¼ş
-#include <windows.h>      // °üº¬WindowsÌØ¶¨º¯Êı¿â£¬ÓÃÓÚÇåÆÁºÍÑÓÊ±
-#include <conio.h>        // °üº¬¿ØÖÆÌ¨ÊäÈëÊä³öº¯Êı¿â£¬ÓÃÓÚ²¶»ñ¼üÅÌÊäÈë
-#define H 22              // ¶¨ÒåÆåÅÌµÄ¸ß¶ÈÎª22
-#define W 22              // ¶¨ÒåÆåÅÌµÄ¿í¶ÈÎª22
-using namespace std;      // Ê¹ÓÃ±ê×¼ÃüÃû¿Õ¼ä
+#include <bits/stdc++.h>  // åŒ…å«å‡ ä¹æ‰€æœ‰æ ‡å‡†åº“å¤´æ–‡ä»¶
+#include <windows.h>      // åŒ…å«Windowsç‰¹å®šå‡½æ•°åº“ï¼Œç”¨äºæ¸…å±å’Œå»¶æ—¶
+#include <conio.h>        // åŒ…å«æ§åˆ¶å°è¾“å…¥è¾“å‡ºå‡½æ•°åº“ï¼Œç”¨äºæ•è·é”®ç›˜è¾“å…¥
+#define H 22              // å®šä¹‰æ£‹ç›˜çš„é«˜åº¦ä¸º22
+#define W 22              // å®šä¹‰æ£‹ç›˜çš„å®½åº¦ä¸º22
+using namespace std;      // ä½¿ç”¨æ ‡å‡†å‘½åç©ºé—´
 
-class chessboard       // ¶¨ÒåÆåÅÌÀà
+class chessboard       // å®šä¹‰æ£‹ç›˜ç±»
 {
 public:
-    char qp[H][W];     // ¶¨ÒåÆåÅÌµÄ¶şÎ¬Êı×é
-    int i, j, x1, y1;  // ¶¨ÒåÆåÅÌ×ø±êºÍÊ³ÎïÎ»ÖÃ±äÁ¿
-    chessboard();      // ÆåÅÌÀàµÄ¹¹Ôìº¯Êı
-    void food();       // Éú³ÉÊ³ÎïµÄº¯Êı
-    void prt(int grade, int score, int gamespeed); // ´òÓ¡ÆåÅÌµÄº¯Êı
+    char qp[H][W];     // å®šä¹‰æ£‹ç›˜çš„äºŒç»´æ•°ç»„
+    int i, j, x1, y1;  // å®šä¹‰æ£‹ç›˜åæ ‡å’Œé£Ÿç‰©ä½ç½®å˜é‡
+    chessboard();      // æ£‹ç›˜ç±»çš„æ„é€ å‡½æ•°
+    void food();       // ç”Ÿæˆé£Ÿç‰©çš„å‡½æ•°
+    void prt(int grade, int score, int gamespeed); // æ‰“å°æ£‹ç›˜çš„å‡½æ•°
 };
 
-chessboard::chessboard() // ¹¹Ôìº¯ÊıµÄÊµÏÖ
+chessboard::chessboard() // æ„é€ å‡½æ•°çš„å®ç°
 {
-    for (i = 1; i <= H - 2; i++) // ³õÊ¼»¯ÆåÅÌÄÚ²¿Îª¿Õ¸ñ
+    for (i = 1; i <= H - 2; i++) // åˆå§‹åŒ–æ£‹ç›˜å†…éƒ¨ä¸ºç©ºæ ¼
         for (j = 1; j <= W - 2; j++)
             qp[i][j] = ' ';
-    for (i = 0; i <= H - 1; i++) // ³õÊ¼»¯ÆåÅÌµÄ±ß½çÎª'#'
+    for (i = 0; i <= H - 1; i++) // åˆå§‹åŒ–æ£‹ç›˜çš„è¾¹ç•Œä¸º'#'
         qp[0][i] = qp[H - 1][i] = '#';
     for (i = 1; i <= H - 2; i++)
         qp[i][0] = qp[i][W - 1] = '#';
-    food(); // Éú³ÉÒ»¸ö³õÊ¼Ê³Îï
+    food(); // ç”Ÿæˆä¸€ä¸ªåˆå§‹é£Ÿç‰©
 }
 
-void chessboard::food() // Éú³ÉÊ³ÎïµÄº¯ÊıÊµÏÖ
+void chessboard::food() // ç”Ÿæˆé£Ÿç‰©çš„å‡½æ•°å®ç°
 {
-    srand(time(0)); // Ê¹ÓÃµ±Ç°Ê±¼ä×÷ÎªËæ»úÊıÖÖ×Ó
+    srand(time(0)); // ä½¿ç”¨å½“å‰æ—¶é—´ä½œä¸ºéšæœºæ•°ç§å­
     do
     {
-        x1 = rand() % (W - 2) + 1; // Ëæ»úÉú³ÉÊ³ÎïµÄx×ø±ê
-        y1 = rand() % (H - 2) + 1; // Ëæ»úÉú³ÉÊ³ÎïµÄy×ø±ê
-    } while (qp[x1][y1] != ' '); // È·±£Ê³Îï²»Éú³ÉÔÚ·Ç¿Õ¸ñÎ»ÖÃ
-    qp[x1][y1] = '$'; // ½«Ê³ÎïÎ»ÖÃ±ê¼ÇÎª'$'
+        x1 = rand() % (W - 2) + 1; // éšæœºç”Ÿæˆé£Ÿç‰©çš„xåæ ‡
+        y1 = rand() % (H - 2) + 1; // éšæœºç”Ÿæˆé£Ÿç‰©çš„yåæ ‡
+    } while (qp[x1][y1] != ' '); // ç¡®ä¿é£Ÿç‰©ä¸ç”Ÿæˆåœ¨éç©ºæ ¼ä½ç½®
+    qp[x1][y1] = '$'; // å°†é£Ÿç‰©ä½ç½®æ ‡è®°ä¸º'$'
 }
 
-void chessboard::prt(int grade, int score, int gamespeed) // ´òÓ¡ÆåÅÌµÄº¯ÊıÊµÏÖ
+void chessboard::prt(int grade, int score, int gamespeed) // æ‰“å°æ£‹ç›˜çš„å‡½æ•°å®ç°
 {
-    system("cls"); // ÇåÆÁ
+    system("cls"); // æ¸…å±
     cout << endl;
     for (i = 0; i < H; i++)
     {
         cout << "\t";
         for (j = 0; j < W; j++)
-            cout << qp[i][j] << ' '; // ´òÓ¡ÆåÅÌ
-        if (i == 0) cout << "\tGrade:" << grade; // ´òÓ¡µÈ¼¶
-        if (i == 2) cout << "\tScore:" << score; // ´òÓ¡·ÖÊı
-        if (i == 4) cout << "\tAutomatic forward"; // ÌáÊ¾×Ô¶¯Ç°½ø
-        if (i == 5) cout << "\ttime interval:" << gamespeed << "ms"; // ´òÓ¡Ê±¼ä¼ä¸ô
+            cout << qp[i][j] << ' '; // æ‰“å°æ£‹ç›˜
+        if (i == 0) cout << "\tGrade:" << grade; // æ‰“å°ç­‰çº§
+        if (i == 2) cout << "\tScore:" << score; // æ‰“å°åˆ†æ•°
+        if (i == 4) cout << "\tAutomatic forward"; // æç¤ºè‡ªåŠ¨å‰è¿›
+        if (i == 5) cout << "\ttime interval:" << gamespeed << "ms"; // æ‰“å°æ—¶é—´é—´éš”
         cout << endl;
     }
 }
 
-class snake : public chessboard // ¶¨ÒåÉßÀà£¬¼Ì³Ğ×ÔÆåÅÌÀà
+class snake : public chessboard // å®šä¹‰è›‡ç±»ï¼Œç»§æ‰¿è‡ªæ£‹ç›˜ç±»
 {
 public:
-    int zb[2][100]; // ¶¨ÒåÉßµÄÎ»ÖÃÊı×é
-    long start; // ¶¨Òå¿ªÊ¼Ê±¼ä
-    int head, tail, grade, score, gamespeed, length, timeover, x, y; // ¶¨ÒåÉßµÄ¸÷ÖÖÊôĞÔ
-    char direction; // ¶¨ÒåÉßµÄ·½Ïò
-    snake(); // ÉßÀàµÄ¹¹Ôìº¯Êı
-    void move(); // ÉßµÄÒÆ¶¯º¯Êı
+    int zb[2][100]; // å®šä¹‰è›‡çš„ä½ç½®æ•°ç»„
+    long start; // å®šä¹‰å¼€å§‹æ—¶é—´
+    int head, tail, grade, score, gamespeed, length, timeover, x, y; // å®šä¹‰è›‡çš„å„ç§å±æ€§
+    char direction; // å®šä¹‰è›‡çš„æ–¹å‘
+    snake(); // è›‡ç±»çš„æ„é€ å‡½æ•°
+    void move(); // è›‡çš„ç§»åŠ¨å‡½æ•°
 };
 
-snake::snake() // ÉßÀàµÄ¹¹Ôìº¯ÊıÊµÏÖ
+snake::snake() // è›‡ç±»çš„æ„é€ å‡½æ•°å®ç°
 {
-    cout << "\n\n\t\tThe game is about to begin!" << endl; // ÌáÊ¾ÓÎÏ·¼´½«¿ªÊ¼
+    cout << "\n\n\t\tThe game is about to begin!" << endl; // æç¤ºæ¸¸æˆå³å°†å¼€å§‹
     for (i = 3; i >= 0; i--)
     {
-        start = clock(); // »ñÈ¡µ±Ç°Ê±¼ä
-        while (clock() - start <= 1000); // µÈ´ı1Ãë
-        system("cls"); // ÇåÆÁ
+        start = clock(); // è·å–å½“å‰æ—¶é—´
+        while (clock() - start <= 1000); // ç­‰å¾…1ç§’
+        system("cls"); // æ¸…å±
         if (i > 0)
-            cout << "\n\n\t\tCountdown:" << i << endl; // ´òÓ¡µ¹¼ÆÊ±
+            cout << "\n\n\t\tCountdown:" << i << endl; // æ‰“å°å€’è®¡æ—¶
     }
     for (i = 1; i <= 3; i++)
-        qp[1][i] = '*'; // ³õÊ¼»¯ÉßµÄÉíÌå
-    qp[1][4] = '@'; // ³õÊ¼»¯ÉßµÄÍ·²¿
+        qp[1][i] = '*'; // åˆå§‹åŒ–è›‡çš„èº«ä½“
+    qp[1][4] = '@'; // åˆå§‹åŒ–è›‡çš„å¤´éƒ¨
     for (i = 0; i < 4; i++)
     {
-        zb[0][i] = 1; // ³õÊ¼»¯ÉßµÄx×ø±ê
-        zb[1][i] = i + 1; // ³õÊ¼»¯ÉßµÄy×ø±ê
+        zb[0][i] = 1; // åˆå§‹åŒ–è›‡çš„xåæ ‡
+        zb[1][i] = i + 1; // åˆå§‹åŒ–è›‡çš„yåæ ‡
     }
 }
 
-void snake::move() // ÉßµÄÒÆ¶¯º¯ÊıÊµÏÖ
+void snake::move() // è›‡çš„ç§»åŠ¨å‡½æ•°å®ç°
 {
-    score = 0; // ³õÊ¼»¯·ÖÊı
-    head = 3, tail = 0; // ³õÊ¼»¯ÉßÍ·ºÍÉßÎ²µÄÎ»ÖÃ
-    grade = 1, length = 4; // ³õÊ¼»¯µÈ¼¶ºÍ³¤¶È
-    gamespeed = 500; // ³õÊ¼»¯ÓÎÏ·ËÙ¶È
-    direction = 77; // ³õÊ¼»¯·½ÏòÎªÓÒ
-    bool paused = false; // ³õÊ¼»¯ÔİÍ£×´Ì¬
-    while (1) // ÎŞÏŞÑ­»·£¬ÓÎÏ·Ö÷Âß¼­
+    score = 0; // åˆå§‹åŒ–åˆ†æ•°
+    head = 3, tail = 0; // åˆå§‹åŒ–è›‡å¤´å’Œè›‡å°¾çš„ä½ç½®
+    grade = 1, length = 4; // åˆå§‹åŒ–ç­‰çº§å’Œé•¿åº¦
+    gamespeed = 500; // åˆå§‹åŒ–æ¸¸æˆé€Ÿåº¦
+    direction = 77; // åˆå§‹åŒ–æ–¹å‘ä¸ºå³
+    bool paused = false; // åˆå§‹åŒ–æš‚åœçŠ¶æ€
+    while (1) // æ— é™å¾ªç¯ï¼Œæ¸¸æˆä¸»é€»è¾‘
     {
-        timeover = 1; // ³õÊ¼»¯Ê±¼ä±êÖ¾
-        start = clock(); // »ñÈ¡µ±Ç°Ê±¼ä
-        while ((timeover = (clock() - start <= gamespeed)) && !kbhit()); // µÈ´ıÓÎÏ·ËÙ¶ÈÊ±¼ä»òÓĞ¼üÅÌÊäÈë
+        timeover = 1; // åˆå§‹åŒ–æ—¶é—´æ ‡å¿—
+        start = clock(); // è·å–å½“å‰æ—¶é—´
+        while ((timeover = (clock() - start <= gamespeed)) && !kbhit()); // ç­‰å¾…æ¸¸æˆé€Ÿåº¦æ—¶é—´æˆ–æœ‰é”®ç›˜è¾“å…¥
         if (timeover)
         {
             char ch = getch();
-            if (ch == ' ') // ¼ì²â¿Õ¸ñ¼ü
+            if (ch == ' ') // æ£€æµ‹ç©ºæ ¼é”®
             {
-                paused = !paused; // ÇĞ»»ÔİÍ£×´Ì¬
+                paused = !paused; // åˆ‡æ¢æš‚åœçŠ¶æ€
                 if (paused)
                 {
                     cout << "\n\n\t\tPaused" << endl;
@@ -113,37 +113,37 @@ void snake::move() // ÉßµÄÒÆ¶¯º¯ÊıÊµÏÖ
                     {
                         if (kbhit() && getch() == ' ')
                         {
-                            paused = false; // ¼ÌĞøÓÎÏ·
-                            system("cls"); // ÇåÆÁ
+                            paused = false; // ç»§ç»­æ¸¸æˆ
+                            system("cls"); // æ¸…å±
                         }
                     }
                 }
             }
-            else if (ch == 72 || ch == 80 || ch == 75 || ch == 77) // ¼ì²â·½Ïò¼ü
+            else if (ch == 72 || ch == 80 || ch == 75 || ch == 77) // æ£€æµ‹æ–¹å‘é”®
             {
-                direction = ch; // »ñÈ¡·½Ïò¼üÊäÈë
+                direction = ch; // è·å–æ–¹å‘é”®è¾“å…¥
             }
             else
             {
-                continue; // ºöÂÔÆäËû°´¼ü
+                continue; // å¿½ç•¥å…¶ä»–æŒ‰é”®
             }
         }
-        switch (direction) // ¸ù¾İ·½Ïò¸üĞÂÉßÍ·µÄÎ»ÖÃ
+        switch (direction) // æ ¹æ®æ–¹å‘æ›´æ–°è›‡å¤´çš„ä½ç½®
         {
-        case 72: x = zb[0][head] - 1; y = zb[1][head]; break; // ÉÏ
-        case 80: x = zb[0][head] + 1; y = zb[1][head]; break; // ÏÂ
-        case 75: x = zb[0][head]; y = zb[1][head] - 1; break; // ×ó
-        case 77: x = zb[0][head]; y = zb[1][head] + 1; break; // ÓÒ
+        case 72: x = zb[0][head] - 1; y = zb[1][head]; break; // ä¸Š
+        case 80: x = zb[0][head] + 1; y = zb[1][head]; break; // ä¸‹
+        case 75: x = zb[0][head]; y = zb[1][head] - 1; break; // å·¦
+        case 77: x = zb[0][head]; y = zb[1][head] + 1; break; // å³
         }
-        if (x == 0 || x == 21 || y == 0 || y == 21) // ×²Ç½¼ì²â
+        if (x == 0 || x == 21 || y == 0 || y == 21) // æ’å¢™æ£€æµ‹
         {
-            system("cls"); // ÇåÆÁ
-            cout << "\n\n\t\tGAME OVER" << endl; // ´òÓ¡ÓÎÏ·½áÊø
-            cout << "\t\tScore: " << score << endl; // ´òÓ¡·ÖÊı
-            Sleep(5000); // µÈ´ı5Ãë
-            break; // ÍË³öÑ­»·
+            system("cls"); // æ¸…å±
+            cout << "\n\n\t\tGAME OVER" << endl; // æ‰“å°æ¸¸æˆç»“æŸ
+            cout << "\t\tScore: " << score << endl; // æ‰“å°åˆ†æ•°
+            Sleep(5000); // ç­‰å¾…5ç§’
+            break; // é€€å‡ºå¾ªç¯
         }
-        if (qp[x][y] != ' ' && !(x == x1 && y == y1)) // ×²µ½×Ô¼º¼ì²â
+        if (qp[x][y] != ' ' && !(x == x1 && y == y1)) // æ’åˆ°è‡ªå·±æ£€æµ‹
         {
             system("cls");
             cout << "\n\n\t\tGAME OVER" << endl;
@@ -151,7 +151,7 @@ void snake::move() // ÉßµÄÒÆ¶¯º¯ÊıÊµÏÖ
             Sleep(5000);
             break;
         }
-        if (x == x1 && y == y1) // ³Ôµ½Ê³Îï
+        if (x == x1 && y == y1) // åƒåˆ°é£Ÿç‰©
         {
             length++;
             score = score + 100;
@@ -184,9 +184,9 @@ void snake::move() // ÉßµÄÒÆ¶¯º¯ÊıÊµÏÖ
     }
 }
 
-int main() // Ö÷º¯Êı
+int main() // ä¸»å‡½æ•°
 {
-    chessboard cb; // ´´½¨ÆåÅÌ¶ÔÏó
-    snake s; // ´´½¨Éß¶ÔÏó
-    s.move(); // µ÷ÓÃÉßµÄÒÆ¶¯º¯Êı£¬¿ªÊ¼ÓÎÏ·
+    chessboard cb; // åˆ›å»ºæ£‹ç›˜å¯¹è±¡
+    snake s; // åˆ›å»ºè›‡å¯¹è±¡
+    s.move(); // è°ƒç”¨è›‡çš„ç§»åŠ¨å‡½æ•°ï¼Œå¼€å§‹æ¸¸æˆ
 }
